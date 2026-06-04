@@ -7,6 +7,9 @@ import os
 
 from recognition import recognize_component
 
+from database_manager import add_component
+from database_manager import get_all_components
+
 app = Flask(__name__)
 
 # Smart Farm State
@@ -42,6 +45,18 @@ def upload_page():
     return render_template("upload.html")
 
 
+# Inventory Page
+@app.route("/inventory")
+def inventory():
+
+    items = get_all_components()
+
+    return render_template(
+        "inventory.html",
+        items=items
+    )
+
+
 # Image Recognition Route
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -65,6 +80,13 @@ def predict():
     )
 
     component = result["component"]
+    confidence = result["confidence"]
+
+    # Save to SQLite Database
+    add_component(
+        component,
+        confidence
+    )
 
     # Unlock Assets
     if component == "Arduino-Uno":
@@ -83,6 +105,13 @@ def update():
     data = request.json
 
     component = data.get("component")
+    confidence = data.get("confidence", 0)
+
+    # Save to Database
+    add_component(
+        component,
+        confidence
+    )
 
     if component == "Arduino-Uno":
         state["Farm Brain"] = True
@@ -99,13 +128,17 @@ def update():
 # Optional Testing Routes
 @app.route("/unlock_arduino")
 def unlock_arduino():
+
     state["Farm Brain"] = True
+
     return "Arduino Uno Unlocked"
 
 
 @app.route("/unlock_soil")
 def unlock_soil():
+
     state["Water Guardian"] = True
+
     return "Soil Moisture Sensor Unlocked"
 
 
