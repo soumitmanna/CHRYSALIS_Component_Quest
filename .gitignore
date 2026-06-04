@@ -1,0 +1,17 @@
+# Virtual Environment
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Temporary Files
+*.tmp
+*.log
+
+# Generated Arrays
+arduino_array.txt
+soil_array.txt
