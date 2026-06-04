@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHRYSALIS Component Quest</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f7fa;
+            text-align:center;
+            margin:0;
+            padding:30px;
+        }
+
+        h1{
+            color:#2c3e50;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            border-radius:15px;
+            padding:20px;
+            margin:20px;
+            box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .unlocked{
+            color:green;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .locked{
+            color:red;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .progress-container{
+            width:100%;
+            background:#ddd;
+            border-radius:20px;
+            overflow:hidden;
+            margin-top:15px;
+        }
+
+        .progress-bar{
+            height:30px;
+            background:#27ae60;
+            text-align:center;
+            color:white;
+            line-height:30px;
+            font-weight:bold;
+        }
+
+        .button{
+            display:inline-block;
+            padding:12px 20px;
+            background:#3498db;
+            color:white;
+            text-decoration:none;
+            border-radius:10px;
+            margin-top:15px;
+        }
+
+        .button:hover{
+            background:#2980b9;
+        }
+
+        .complete{
+            margin-top:25px;
+            padding:20px;
+            background:#2ecc71;
+            color:white;
+            font-size:28px;
+            border-radius:15px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌱 CHRYSALIS COMPONENT QUEST</h1>
+
+    <div class="card">
+
+        <h2>🚜 Smart Farm Digital Twin</h2>
+
+        <h3>
+            Farm Brain:
+            <span class="{{ 'unlocked' if 'Unlocked' in farm_brain else 'locked' }}">
+                {{ farm_brain }}
+            </span>
+        </h3>
+
+        <h3>
+            Water Guardian:
+            <span class="{{ 'unlocked' if 'Unlocked' in water_guardian else 'locked' }}">
+                {{ water_guardian }}
+            </span>
+        </h3>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🎯 Mission Progress</h2>
+
+        <div class="progress-container">
+
+            <div class="progress-bar"
+                 style="width: {{ completion }}%;">
+
+                {{ completion }}%
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if completion == 100 %}
+
+    <div class="complete">
+        🎉 SMART FARM COMPLETED 🎉
+    </div>
+
+    {% endif %}
+
+    <a href="/upload" class="button">
+        Upload Component Image
+    </a>
+
+</div>
+
+</body>
+</html>
