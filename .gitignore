@@ -15,3 +15,6 @@ __pycache__/
 # Generated Arrays
 arduino_array.txt
 soil_array.txt
+
+# Unused File
+database.py
